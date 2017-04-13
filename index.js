@@ -2,6 +2,7 @@ var electron = require('electron');
 
 var BrowserWindow = electron.BrowserWindow;
 var app = electron.app;
+var ipc = electron.ipcMain;
 
 app.on('ready', function(){
     var appWindow, infoWindow;
@@ -14,7 +15,6 @@ app.on('ready', function(){
         width: 400,
         height: 300,
         transparent: true,
-        frame: false,
         show: false
     });
     infoWindow.loadURL('file: //' + __dirname + '/info.html')
@@ -23,11 +23,11 @@ app.on('ready', function(){
         appWindow.show();
         setTimeout(()=> {
             infoWindow.show();
-            setTimeout(()=> {
-                infoWindow.hide();
-            }, 3000)
-
         }, 1000)
+    });
 
-    })
-})
+    ipc.on('closeInfoWindow', (event) => {
+        event.returnValue = '';
+        infoWindow.hide();
+    });
+});
