@@ -11,4 +11,6 @@ start the project:
     nmp i
     ./node_modules/.bin/electron .
 
+You can find documentation [here](https://electron.atom.io/docs/)
+
 
